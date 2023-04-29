@@ -1,5 +1,8 @@
 from pydantic import BaseModel, conint, confloat
-from typing import Literal, List
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 
 class Order(BaseModel):
     id: conint(strict=True, gt=0)
@@ -9,5 +12,5 @@ class Order(BaseModel):
     status: Literal['completed', 'pending', 'canceled']
     
 class DataRequest(BaseModel):
-    orders: List[Order]
+    orders: list[Order]
     criterion: Literal['completed', 'pending', 'canceled']
